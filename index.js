@@ -10,14 +10,15 @@ var inputZipPath   = process.argv[2];
 var inputStartDate = new Date(process.argv[3]);
 var inputEndDate   = new Date(process.argv[4]);
 
-loader.loadTripFromZip(inputZipPath, inputStartDate, inputEndDate);
-loader.loadTripFromZip(inputZipPath, new Date(inputStartDate).setMonth(inputStartDate.getMonth() -1), new Date(inputEndDate).setMonth(inputEndDate.getMonth() -1));
-loader.loadTripFromZip(inputZipPath, new Date(inputStartDate).setMonth(inputStartDate.getMonth() -2), new Date(inputEndDate).setMonth(inputEndDate.getMonth() -2));
+// loader.loadTripFromZip(inputZipPath, inputStartDate, inputEndDate);
+// loader.loadTripFromZip(inputZipPath, new Date(inputStartDate).setMonth(inputStartDate.getMonth() -1), new Date(inputEndDate).setMonth(inputEndDate.getMonth() -1));
+// loader.loadTripFromZip(inputZipPath, new Date(inputStartDate).setMonth(inputStartDate.getMonth() -2), new Date(inputEndDate).setMonth(inputEndDate.getMonth() -2));
 
 setTimeout(function(){
   console.log('trips stored: ');
   var list = db.getTripsList();
   console.log(list);
+  db.loadData();
 }, 10000);
 
 // NOTE:
