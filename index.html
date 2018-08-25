@@ -1,14 +1,59 @@
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+  #right-panel {
+    font-family: 'Roboto','sans-serif';
+    line-height: 30px;
+    padding-left: 2px;
+  }
+
+  #right-panel select, #right-panel input {
+    font-size: 15px;
+  }
+
+  #right-panel select {
+    width: 100%;
+  }
+
+  #right-panel i {
+    font-size: 12px;
+  }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #map {
+    height: 100%; !important
+    width: 100%; !important
+  }
+  #right-panel {
+    float: right;
+    width: 28%;
+    padding-left: 2%;
+  }
+  #output {
+    font-size: 11px;
+  }
+</style>
+</head>
+
 <body>
 
-<h1>tripMaps</h1>
+  <h1>tripMaps</h1>
 
-<p>content</p>
+  <p>content</p>
 
-<script>
-  require('./index.js');
-</script>
+  <div id="map">
+    div
+  </div>
+
+  <script src = 'index.js'> </script>
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBI1TqgaGgm2CHqsdPl9DzXTwOv90zq4gs&callback=init">
+    // AIzaSyBI1TqgaGgm2CHqsdPl9DzXTwOv90zq4gs
+  </script>
 
 </body>
 </html>
