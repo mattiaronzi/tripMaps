@@ -10,16 +10,17 @@ var inputZipPath   = process.argv[2];
 var inputStartDate = new Date(process.argv[3]);
 var inputEndDate   = new Date(process.argv[4]);
 
-// loader.loadTripFromZip(inputZipPath, inputStartDate, inputEndDate);
-// loader.loadTripFromZip(inputZipPath, new Date(inputStartDate).setMonth(inputStartDate.getMonth() -1), new Date(inputEndDate).setMonth(inputEndDate.getMonth() -1));
-// loader.loadTripFromZip(inputZipPath, new Date(inputStartDate).setMonth(inputStartDate.getMonth() -2), new Date(inputEndDate).setMonth(inputEndDate.getMonth() -2));
+loader.loadTripFromZip(inputZipPath, inputStartDate, inputEndDate);
+loader.loadTripFromZip(inputZipPath, new Date(inputStartDate).setMonth(inputStartDate.getMonth() -1), new Date(inputEndDate).setMonth(inputEndDate.getMonth() -1));
+loader.loadTripFromZip(inputZipPath, new Date(inputStartDate).setMonth(inputStartDate.getMonth() -2), new Date(inputEndDate).setMonth(inputEndDate.getMonth() -2));
 
 setTimeout(function(){
+  db.saveData();
   console.log('trips stored: ');
   var list = db.getTripsList();
   console.log(list);
-  db.loadData();
-}, 10000);
+  setTimeout(db.loadData, 5000);
+}, 20000);
 
 // NOTE:
 // for db functionalities, look at this https://github.com/typicaljoe/taffydb
