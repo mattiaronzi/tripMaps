@@ -27,33 +27,39 @@ function loadTripFromZip(inputZipPath, s, e){
         entry.pipe(
           fs.createWriteStream(fileName)
             .on('close', function(data){
-                console.log('close stream')
-                extractData(fileName, s, e);
+                console.log('close stream');
+                extractData(fileName, s, e, db.storeTrip);
             })
-        )
+        );
 
       } else {
-        entry.autodrain()
+        entry.autodrain();
       }
-    })
+    });
 }
 
-function extractData(jsonFile, startDate = new Date(2018,7,1), endDate = new Date(2018,8,1), outFileName){
+function extractData(jsonFile, startDate, endDate, callback){
+  if (!startDate || !endDate){
+    console.error('no dates to extract trip data');
+    return;
+  }
   // extract data based on start & and time (input by argv)
   console.log('reading JSON');
   var rawData = fs.readJSONSync(jsonFile);
   console.time('extract data');
-  var rawLocations = rawData['locations'];
-  var rawTrip = [];
+  var rawLocations = rawData.locations;
+  var rawTripData = [];
   for (var id in rawLocations) {
     var timestamp = new Date(parseInt(rawLocations[id].timestampMs));
     if ( timestamp >= startDate && timestamp < endDate){
       // console.log(timestamp.toLocaleString(), startDate.toLocaleString(), endDate.toLocaleString());
-      rawTrip.push(rawLocations[id]);
+      rawTripData.push(rawLocations[id]);
     }
   }
-  console.timeEnd('extract data', rawLocations.length, '>>>', rawTrip.length);
-  db.storeTrip(rawTrip);
+  console.timeEnd('extract data', rawLocations.length, '>>>', rawTripData.length);
+  if (callback){
+    callback(rawTripData, startDate, endDate);
+  }
 }
 
 exports.loadTripFromZip = loadTripFromZip;
